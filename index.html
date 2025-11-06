@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>font-changer</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Style Converter</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:transparent;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}.container{background:white;border-radius:20px;padding:30px;width:100%;max-width:600px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}.input-area{margin-bottom:20px}.input-label{font-size:14px;font-weight:600;color:#666;margin-bottom:8px;display:block}textarea{width:100%;padding:15px;font-size:16px;border:2px solid #e0e0e0;border-radius:12px;resize:vertical;min-height:100px;transition:border-color 0.3s;font-family:inherit}textarea:focus{outline:none;border-color:#667eea}.style-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-bottom:15px}.style-btn{padding:12px;font-size:18px;font-weight:bold;border:2px solid #e0e0e0;border-radius:10px;cursor:pointer;background:white;color:#444;transition:all 0.2s;text-align:center}.style-btn:hover{border-color:#667eea;background:#f5f7ff}.style-btn:active{transform:scale(0.95)}.spacing-toggle{margin-bottom:20px}.spacing-btn{width:100%;padding:15px;font-size:16px;font-weight:bold;border:none;border-radius:12px;cursor:pointer;background:linear-gradient(135deg,#5e89e6 0%,#a78bfa 100%);color:white;transition:all 0.2s;box-shadow:0 4px 15px rgba(94,137,230,0.4)}.spacing-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(94,137,230,0.6)}.spacing-btn:active{transform:translateY(0)}.spacing-btn.active{opacity:0.8}.output-area{margin-bottom:20px}.output{width:100%;padding:15px;font-size:18px;background:#f5f5f5;border:2px solid #e0e0e0;border-radius:12px;min-height:100px;white-space:pre-wrap;word-break:break-word;font-family:inherit}.copy-btn{width:100%;padding:15px;font-size:16px;font-weight:bold;border:none;border-radius:12px;cursor:pointer;background:linear-gradient(135deg,#5e89e6 0%,#a78bfa 100%);color:white;transition:transform 0.2s;box-shadow:0 4px 15px rgba(94,137,230,0.4)}.copy-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(94,137,230,0.6)}.copy-btn:active{transform:translateY(0)}.feedback{text-align:center;margin-top:10px;font-size:14px;color:#667eea;font-weight:600;min-height:20px}@media(max-width:600px){.container{padding:20px}.style-buttons{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="input-area">
+<label class="input-label">Input Text</label>
+<textarea id="input" placeholder="Type your text here...">Tsvan</textarea>
+</div>
+<div class="style-buttons">
+<button class="style-btn" onclick="convertText('blackboard')">𝕊𝕒𝕞𝕡𝕝𝕖</button>
+<button class="style-btn" onclick="convertText('bold')">𝐒𝐚𝐦𝐩𝐥𝐞</button>
+<button class="style-btn" onclick="convertText('script')">𝓢𝓪𝓶𝓹𝓵𝓮</button>
+<button class="style-btn" onclick="convertText('italic')">𝑺𝒂𝒎𝒑𝒍𝒆</button>
+<button class="style-btn" onclick="convertText('sans')">𝗦𝗮𝗺𝗽𝗹𝗲</button>
+</div>
+<div class="spacing-toggle">
+<button class="spacing-btn" id="spacingBtn" onclick="toggleSpacing()">Add spacing between characters</button>
+</div>
+<div class="output-area">
+<label class="input-label">Converted Text</label>
+<div id="output" class="output"></div>
+</div>
+<button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+<div id="feedback" class="feedback"></div>
+</div>
+<script>
+let currentStyle='bold',baseOutput='',spacingEnabled=false;function convertText(s){currentStyle=s;const input=document.getElementById('input').value;let output='';for(let i=0;i<input.length;i++){const char=input[i],code=char.charCodeAt(0);let newChar=char;if(code>=65&&code<=90)newChar=getStyledChar(s,'upper',char);else if(code>=97&&code<=122)newChar=getStyledChar(s,'lower',char);else if(code>=48&&code<=57)newChar=getStyledChar(s,'number',code-48);output+=newChar}baseOutput=output;updateOutput()}function toggleSpacing(){spacingEnabled=!spacingEnabled;const btn=document.getElementById('spacingBtn');spacingEnabled?btn.classList.add('active'):btn.classList.remove('active');updateOutput()}function updateOutput(){let finalOutput=baseOutput;if(spacingEnabled)finalOutput=Array.from(baseOutput).join(' ');document.getElementById('output').textContent=finalOutput}function getStyledChar(style,type,charOrIndex){if(style==='blackboard'&&type==='upper'){const map={'A':'𝔸','B':'𝔹','C':'ℂ','D':'𝔻','E':'𝔼','F':'𝔽','G':'𝔾','H':'ℍ','I':'𝕀','J':'𝕁','K':'𝕂','L':'𝕃','M':'𝕄','N':'ℕ','O':'𝕆','P':'ℙ','Q':'ℚ','R':'ℝ','S':'𝕊','T':'𝕋','U':'𝕌','V':'𝕍','W':'𝕎','X':'𝕏','Y':'𝕐','Z':'ℤ'};return map[charOrIndex]||charOrIndex}if(style==='blackboard'&&type==='lower'){const map={'a':'𝕒','b':'𝕓','c':'𝕔','d':'𝕕','e':'𝕖','f':'𝕗','g':'𝕘','h':'𝕙','i':'𝕚','j':'𝕛','k':'𝕜','l':'𝕝','m':'𝕞','n':'𝕟','o':'𝕠','p':'𝕡','q':'𝕢','r':'𝕣','s':'𝕤','t':'𝕥','u':'𝕦','v':'𝕧','w':'𝕨','x':'𝕩','y':'𝕪','z':'𝕫'};return map[charOrIndex]||charOrIndex}const index=typeof charOrIndex==='string'?charOrIndex.charCodeAt(0)-(type==='upper'?65:97):charOrIndex;const offsets={blackboard:{number:0x1D7D8},bold:{upper:0x1D400,lower:0x1D41A,number:0x1D7CE},script:{upper:0x1D4D0,lower:0x1D4EA,number:-1},italic:{upper:0x1D468,lower:0x1D482,number:-1},sans:{upper:0x1D5D4,lower:0x1D5EE,number:0x1D7EC}};const offset=offsets[style][type];if(offset===-1)return String.fromCharCode(48+index);return String.fromCodePoint(offset+index)}function copyToClipboard(){const output=document.getElementById('output').textContent;if(!output){showFeedback('No text to copy');return}navigator.clipboard.writeText(output).then(()=>{showFeedback('Copied!')}).catch(()=>{showFeedback('Failed to copy')})}function showFeedback(message){const feedback=document.getElementById('feedback');feedback.textContent=message;setTimeout(()=>{feedback.textContent=''},2000)}convertText('bold');
+</script>
+</body>
+</html>
+    
+  </body>
+  
+</html>
